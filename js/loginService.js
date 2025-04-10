@@ -3,21 +3,32 @@ document.getElementById("formLogin").addEventListener('submit', function (e) {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
+    login(email, password)
+})
+
+function login(email, password){
     let message = ''
     let alerType = ''
 
-    if (email === "" || password === "") {
-        alerType = 'warning'
-        message = 'Por favor completa todos los campos'
-    }
-    else if (email === 'maalvarezn@ufpso.edu.co' && password === '123456') {
+    fetch("htpps://reqres.in/api/login", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({emali, password})
+    })
+    
+    .then((data) =>{
         alerType = 'success'
         message = 'Inicio de sesión exitoso';
-    }
-    else {
+        console.log('Responde bien' + data)
+    })
+
+    .catch((error) => {
         alerType = 'danger'
         message = 'Correo o contraseña incorrectos';
-    }
+        console.log(error)
+    })
 
     let alert = `
         <div class="alert alert-${alerType} alert-dismissible fade show" role="alert">
@@ -26,4 +37,4 @@ document.getElementById("formLogin").addEventListener('submit', function (e) {
         </div>
     `;
     document.getElementById('alert').innerHTML = alert;
-})
+}
