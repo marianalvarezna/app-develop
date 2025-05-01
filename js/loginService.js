@@ -9,28 +9,45 @@ document.getElementById("formLogin").addEventListener('submit', function (e) {
 function login(email, password){
     let message = ''
     let alerType = ''
+    localStorage.removeItem('token')
 
-    fetch("htpps://reqres.in/api/login", {
+    fetch("https://reqres.in/api/login", {
         method: "POST",
         headers: {
-            "Content-type": "application/json"
+            "Content-type": "application/json",
+            'x-api-key': 'reqres-free-v1'
         },
-        body: JSON.stringify({emali, password})
+        body: JSON.stringify({email, password})
     })
     
-    .then((data) =>{
-        alerType = 'success'
-        message = 'Inicio de sesión exitoso';
-        console.log('Responde bien' + data)
+    .then((response) =>{
+        if(response.status === 200){
+            alerType = 'success'
+            message = 'Inicio de sesión exitoso';
+            console.log('Responde bien' + response)
+            alertBuilder(alerType, message)
+            localStorage.setItem('token', response.token)
+            setTimeout(() => {
+                location.href = 'admin/dashboard.html'
+            }, 2000) //2000 ms = 2 seg           
+        }
+        else{
+            alerType = 'danger'
+            message = 'Correo o contraeña incorrectos';
+            alertBuilder(alerType, message)
+        }
     })
 
     .catch((error) => {
         alerType = 'danger'
-        message = 'Correo o contraseña incorrectos';
+        message = 'Error inesperado';
         console.log(error)
+        alertBuilder(alerType, message)
     })
+}
 
-    let alert = `
+function alertBuilder(alerType, message){
+    const alert = `
         <div class="alert alert-${alerType} alert-dismissible fade show" role="alert">
             ${message}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
