@@ -55,14 +55,14 @@ function getUsers(page) {
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
-                        <a class="page-link" href="#" onclick="pageChangeUser('prev')" aria-label="Previous">
+                        <a class="page-link" href="#" aria-label="Previous" onclick="changeUserPage('prev')">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                         </li>
                         <li class="page-item"><a class="page-link" href="#" onclick="getUsers('1')">1</a></li>
                         <li class="page-item"><a class="page-link" href="#" onclick="getUsers('2')">2</a></li>
                         <li class="page-item">
-                        <a class="page-link" href="#" onclick="pageChangeUser('next')" aria-label="Next">
+                        <a class="page-link" href="#" aria-label="Next" onclick="changeUserPage('next')">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                         </li>
@@ -151,3 +151,17 @@ function pageChangeUser(direction) {
         getUsers(currentPageUser);
     }
 }*/
+
+let currentUserPage = 1;
+let totalUserPages = 2;
+
+function changeUserPage(direction) {
+    if (direction === 'prev' && currentUserPage > 1) {
+        currentUserPage--;
+        getUsers(currentUserPage);
+    } else if (direction === 'next' && currentUserPage < totalUserPages) {
+        currentUserPage++;
+        getUsers(currentUserPage);
+    }
+}
+
