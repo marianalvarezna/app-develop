@@ -55,14 +55,14 @@ function getUsers(page) {
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link" href="#" onclick="pageChangeUser('prev')" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                         </li>
                         <li class="page-item"><a class="page-link" href="#" onclick="getUsers('1')">1</a></li>
                         <li class="page-item"><a class="page-link" href="#" onclick="getUsers('2')">2</a></li>
                         <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link" href="#" onclick="pageChangeUser('next')" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                         </li>
@@ -138,3 +138,16 @@ function showModalUser(user) {
     const modal = new bootstrap.Modal(document.getElementById('modalUser'))
     modal.show()
 }
+
+/*let currentPageUser = 1;  // Página actual
+let totalPagesUser = 2;   // Total de páginas disponibles (ajústalo dinámicamente si es necesario)
+
+function pageChangeUser(direction) {
+    if (direction === 'prev' && currentPageUser > 1) {
+        currentPageUser--;
+        getUsers(currentPageUser);
+    } else if (direction === 'next') {
+        currentPageUser++;
+        getUsers(currentPageUser);
+    }
+}*/

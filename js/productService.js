@@ -58,14 +58,14 @@ function getProducts(page){
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link" href="#" onclick="changePageProduct('prev')" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                         </li>
                         <li class="page-item"><a class="page-link" href="#" onclick="getProducts('1')">1</a></li>
                         <li class="page-item"><a class="page-link" href="#" onclick="getProducts('2')">2</a></li>
                         <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link" href="#" onclick="changePageProduct('next')" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                         </li>
@@ -116,13 +116,13 @@ function showModalProduct(product) {
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Show User</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Show product</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">User Info</h5>
+                                <h5 class="card-title">Product Info</h5>
                                 <p class="card-text">Id: ${product.id}</p>
                                 <p class="card-text">Name: ${product.name}</p>
                                 <p class="card-text">Year: ${product.year}</p>
@@ -141,3 +141,17 @@ function showModalProduct(product) {
     const modal = new bootstrap.Modal(document.getElementById('modalProduct'))
     modal.show()
 }
+
+let currentPageProduct = 1;  // Página actual
+let totalPagesProduct = 2;   // Total de páginas disponibles (ajústalo dinámicamente si es necesario)
+
+function changePageProduct(direction) {
+    if (direction === 'prev' && currentPageProduct > 1) {
+        currentPageProduct--;
+        getProducts(currentPageProduct);
+    } else if (direction === 'next') {
+        currentPageProduct++;
+        getProducts(currentPageProduct);
+    }
+}
+
